@@ -10,8 +10,5 @@ const address = getAddress(publicKey)
 console.log(`address: ${address}`);
 
 function getAddress(publicKey) {
-  let key = publicKey.slice(1);
-  let hash = keccak256(key)
-  let address = hash.slice(-20)
-  return toHex(address);
+  return keccak256(publicKey.slice(1)).slice(-20);
 }
