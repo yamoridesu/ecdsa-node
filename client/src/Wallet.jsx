@@ -16,10 +16,8 @@ function Wallet({
 
   async function onChange(evt) {
     const _privateKey = evt.target.value;
-    console.log(`Private key`, _privateKey);
     const publicKey = secp.getPublicKey(_privateKey);
     const address = `0x${getAddress(publicKey)}`;
-    console.log(`Got address: ${address}`);
     setAddress(address);
     setPrivateKey(_privateKey);
     if (address) {
