@@ -1,4 +1,4 @@
-import server from "./server";
+import server from './server';
 
 function Wallet({ address, setAddress, balance, setBalance }) {
   async function onChange(evt) {
@@ -20,7 +20,11 @@ function Wallet({ address, setAddress, balance, setBalance }) {
 
       <label>
         Wallet Address
-        <input placeholder="Type an address, for example: 0x1" value={address} onChange={onChange}></input>
+        <input
+          placeholder="Type an address, for example: 0x1"
+          value={address}
+          onChange={onChange}
+        ></input>
       </label>
 
       <div className="balance">Balance: {balance}</div>
