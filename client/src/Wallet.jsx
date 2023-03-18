@@ -18,7 +18,7 @@ function Wallet({
     const _privateKey = evt.target.value;
     console.log(`Private key`, _privateKey);
     const publicKey = secp.getPublicKey(_privateKey);
-    const address = getAddress(publicKey);
+    const address = `0x${getAddress(publicKey)}`;
     console.log(`Got address: ${address}`);
     setAddress(address);
     setPrivateKey(_privateKey);
@@ -44,7 +44,8 @@ function Wallet({
           onChange={onChange}
         ></input>
       </label>
-
+      
+      <label>Address: {address}</label>
       <div className="balance">Balance: {balance}</div>
     </div>
   );
