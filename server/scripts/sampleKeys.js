@@ -10,6 +10,4 @@ Address: 0x24ec2e794b334fda7d459e44184969d51be34a5f
 User 3:
 Private Key: b61d3ee681fc5bd9c2a3f81a9f3a560d65676e65134e62916779a0b18eff68e3
 Address: 0xe73a059356f0e7ef0c4b68fafdeb54f351a0d434
-
-
 */

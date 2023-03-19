@@ -1,6 +1,7 @@
 const {
   toHex,
   utf8ToBytes,
+  hexToBytes,
 } = require('ethereum-cryptography/utils');
 const { verify, recoverPublicKey } = require('ethereum-cryptography/secp256k1');
 const { keccak256 } = require('ethereum-cryptography/keccak');
@@ -25,17 +26,16 @@ app.get('/balance/:address', (req, res) => {
 });
 
 app.post('/send', (req, res) => {
-  const { signature, transaction } = req.body;
+  const { signature, transaction, recoveryBit } = req.body;
   const { recipient, amount } = transaction;
-  
+
   const hash = toHex(keccak256(utf8ToBytes(JSON.stringify(transaction))));
-  const publicKey = recoverPublicKey(hash, signature, 1);
-  
+  const publicKey = recoverPublicKey(hash, signature, recoveryBit);
   if (verify(signature, hash, publicKey) === false) {
-    return res.status(403).send({message: 'Request is not valid.'});
+    return res.status(403).send({ message: 'Request is not valid.' });
   }
 
-  const sender = '0x' + toHex(getAddress(publicKey));
+  const sender = '0x' + getAddress(publicKey);
   setInitialBalance(sender);
   setInitialBalance(recipient);
 
@@ -59,7 +59,7 @@ function setInitialBalance(address) {
 }
 
 function getAddress(publicKey) {
-  return keccak256(publicKey.slice(1)).slice(-20);
+  return toHex(keccak256(publicKey.slice(1)).slice(-20));
 }
 
 module.exports = app;
